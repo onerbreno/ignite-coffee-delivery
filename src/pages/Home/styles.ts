@@ -2,12 +2,13 @@ import styled from 'styled-components'
 
 export const HomeContainer = styled.main`
   display: flex;
+  flex-direction: column;
 `
 
 export const Hero = styled.section`
   display: flex;
   gap: 2.5rem;
-  padding: 6rem 0;
+  padding: 5.75rem 0;
 `
 
 export const HeroTitle = styled.div`
@@ -23,7 +24,6 @@ export const HeroTitle = styled.div`
   p {
     font-size: 1.25rem;
     line-height: 1.3;
-    margin-bottom: 1rem;
 
     color: ${(props) => props.theme.colors.base.subtitle};
     font: ${(props) => props.theme.fonts.text.lg.regular};
@@ -33,8 +33,8 @@ export const HeroTitle = styled.div`
 export const HeroItems = styled.ul`
   display: flex;
   flex-wrap: wrap;
-
-  gap: 1.25rem;
+  row-gap: 1.25rem;
+  column-gap: 2.5rem;
 `
 
 export const HeroItem = styled.li`
@@ -67,4 +67,22 @@ export const Icon = styled.i<IconProps>`
 
   color: ${(props) => props.theme.colors.base.white};
   background: ${(props) => ICON_COLORS[props.iconColor]};
+`
+
+export const CoffeeSection = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  gap: 3.375rem;
+
+  h2 {
+    font: ${(props) => props.theme.fonts.title.lg};
+    color: ${(props) => props.theme.colors.base.subtitle};
+  }
+`
+
+export const CoffeeListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 `

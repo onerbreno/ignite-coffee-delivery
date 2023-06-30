@@ -7,8 +7,10 @@ export const CoffeeCardContainer = styled.div`
 
   width: 256px;
   border-radius: 6px 36px;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   padding-bottom: 1.25rem;
+
+  text-align: center;
 
   background: ${(props) => props.theme.colors.base.card};
 
@@ -16,6 +18,13 @@ export const CoffeeCardContainer = styled.div`
     margin-top: -1.25rem;
     margin-bottom: 0.75rem;
   }
+`
+
+export const CoffeeCardBadgeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.25rem;
 `
 
 export const CoffeeCardBadge = styled.span`
@@ -40,9 +49,9 @@ export const CoffeeCardInfo = styled.div`
   }
 
   p {
-    text-align: center;
     font: ${(props) => props.theme.fonts.text.sm.regular};
     color: ${(props) => props.theme.colors.base.label};
+    width: 100%;
   }
 `
 

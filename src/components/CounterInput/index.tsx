@@ -1,39 +1,38 @@
 import { Minus, Plus } from 'phosphor-react'
 import { CounterInputContainer } from './styles'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 
-export function CounterInput() {
-  const [counterProduct, setCounterProduct] = useState(0)
+interface CounterInputProps {
+  onDecrement: () => void
+  onIncrement: () => void
+  onCounterChange: (event: ChangeEvent<HTMLInputElement>) => void
+  amount: number
+  limit: number
+}
 
-  function handleCounterChange(event: ChangeEvent<HTMLInputElement>) {
-    const newValue = Number(event.target.value)
-    setCounterProduct(newValue)
-  }
-
-  function handleIncrement() {
-    setCounterProduct((state) => state + 1)
-  }
-
-  function handleDecrement() {
-    if (counterProduct > 0) {
-      setCounterProduct((state) => state - 1)
-    }
-  }
+export function CounterInput({
+  onDecrement,
+  onIncrement,
+  onCounterChange,
+  amount,
+  limit,
+}: CounterInputProps) {
+  const incrementDisabled = amount === limit
+  const decrementDisabled = amount <= 1
 
   return (
     <CounterInputContainer>
-      <button onClick={handleDecrement}>
+      <button onClick={onDecrement} disabled={decrementDisabled}>
         <Minus size={14} weight="bold" />
       </button>
       <input
         type="number"
-        min={0}
-        max={99}
-        placeholder="0"
-        value={counterProduct}
-        onChange={handleCounterChange}
+        placeholder="1"
+        maxLength={1}
+        value={amount}
+        onChange={onCounterChange}
       />
-      <button onClick={handleIncrement}>
+      <button onClick={onIncrement} disabled={incrementDisabled}>
         <Plus size={14} weight="bold" />
       </button>
     </CounterInputContainer>

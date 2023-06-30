@@ -1,35 +1,76 @@
+import { CounterInput } from '../../../../components/CounterInput'
+import { ShoppingCart } from 'phosphor-react'
+
 import {
   CartButton,
   CoffeeCardBadge,
+  CoffeeCardBadgeContainer,
   CoffeeCardContainer,
   CoffeeCardFooter,
   CoffeeCardFooterActions,
   CoffeeCardInfo,
 } from './styles'
-import { CounterInput } from '../../../../components/CounterInput'
+import { ChangeEvent, useState } from 'react'
 
-import expressoTradicional from '../../../../../public/expresso-tradicional.png'
-import { ShoppingCart } from 'phosphor-react'
+export interface CoffeeType {
+  id: number
+  name: string
+  description: string
+  tags: string[]
+  price: number
+  preview: string
+}
 
-export function CoffeeCard() {
+interface CoffeeCardProps {
+  coffee: CoffeeType
+}
+
+export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const [amount, setAmount] = useState(1)
+
+  function handleIncrement() {
+    setAmount((state) => state + 1)
+  }
+
+  function handleDecrement() {
+    setAmount((state) => state - 1)
+  }
+
+  function handleCounterChange(event: ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(event.target.value)
+    if (newValue <= 5) {
+      setAmount(newValue)
+    }
+  }
+
   return (
     <CoffeeCardContainer>
-      <img src={expressoTradicional} alt="" />
+      <img src={`../../../../../${coffee.preview}`} alt="" />
 
-      <CoffeeCardBadge>Tradicional</CoffeeCardBadge>
+      <CoffeeCardBadgeContainer>
+        {coffee.tags.map((tag) => (
+          <CoffeeCardBadge key={tag}>{tag}</CoffeeCardBadge>
+        ))}
+      </CoffeeCardBadgeContainer>
 
       <CoffeeCardInfo>
-        <h4>Expresso Tradicional</h4>
-        <p>O tradicional café feito com água quente e grãos moídos</p>
+        <h4>{coffee.name}</h4>
+        <p>{coffee.description}</p>
       </CoffeeCardInfo>
 
       <CoffeeCardFooter>
         <p>
-          <span>R$</span> 9,90
+          <span>R$</span> {coffee.price.toFixed(2).replace('.', ',')}
         </p>
 
         <CoffeeCardFooterActions>
-          <CounterInput />
+          <CounterInput
+            onDecrement={handleDecrement}
+            onIncrement={handleIncrement}
+            onCounterChange={handleCounterChange}
+            amount={amount}
+            limit={5}
+          />
           <CartButton>
             <ShoppingCart size={22} weight="fill" />
           </CartButton>

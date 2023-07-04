@@ -1,16 +1,17 @@
-import { CurrencyDollar, MapPinLine, Trash } from 'phosphor-react'
+import { CreditCard, CurrencyDollar, MapPinLine, Money } from 'phosphor-react'
 import {
   AddressInputs,
-  CartItem,
   CheckoutContainer,
+  FinishButton,
   InputGroup,
+  RadioButtonGroup,
   SummaryContainer,
   SummaryInfo,
   WrapperHeader,
   WrapperOrder,
 } from './styles'
-
-import coffeeImage from '../../../public/expresso-tradicional.png'
+import { CartItem } from './CartItem'
+import { RadioButton } from '../../components/RadioButton'
 
 export function Checkout() {
   return (
@@ -118,32 +119,43 @@ export function Checkout() {
             <WrapperHeader iconColor="purple-normal">
               <CurrencyDollar size={22} />
               <div>
-                <legend>Endereço de entrega</legend>
-                <p>Informe o endereço onde deseja receber seu pedido</p>
+                <legend>Pagamento</legend>
+                <p>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </p>
               </div>
             </WrapperHeader>
+
+            <RadioButtonGroup>
+              <RadioButton id="credit">
+                <div>
+                  <CreditCard size={16} />
+                </div>
+                <span>CARTÃO DE CRÉDITO</span>
+              </RadioButton>
+              <RadioButton id="de">
+                <div>
+                  <Money size={16} />
+                </div>
+                <span>CARTÃO DE DÉBITO</span>
+              </RadioButton>
+              <RadioButton id="credit">
+                <div>
+                  <Money size={16} />
+                </div>
+                <span>DINHEIRO</span>
+              </RadioButton>
+            </RadioButtonGroup>
           </WrapperOrder>
         </div>
 
         <div>
           <h4>Cafés selecionados</h4>
           <SummaryContainer>
-            <CartItem>
-              <span>
-                <img src={coffeeImage} alt="" />
-                <div>
-                  <p>Expresso Tradicional</p>
-                  {/* <CounterInput /> */}
-                  <button>
-                    <Trash />
-                    Remover
-                  </button>
-                </div>
-              </span>
-              <p>
-                <span>R$</span> 9,90
-              </p>
-            </CartItem>
+            <CartItem />
+            <CartItem />
+
             <SummaryInfo>
               <span>
                 <p>Total de itens</p>
@@ -154,11 +166,12 @@ export function Checkout() {
                 <p>R$ 3,50</p>
               </span>
               <span>
-                <strong>R$ 3,50</strong>
+                <strong>Total</strong>
                 <strong>R$ 33,20</strong>
               </span>
             </SummaryInfo>
-            <button></button>
+
+            <FinishButton>CONFIRMAR PEDIDO</FinishButton>
           </SummaryContainer>
         </div>
       </CheckoutContainer>

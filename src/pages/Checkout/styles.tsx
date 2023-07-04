@@ -39,6 +39,12 @@ export const WrapperOrder = styled.fieldset`
   }
 `
 
+export const RadioButtonGroup = styled.span`
+  display: flex;
+  width: 100%;
+  gap: 0.75rem;
+`
+
 export const WrapperHeader = styled.header<IconProps>`
   display: flex;
   gap: 0.5rem;
@@ -78,6 +84,9 @@ export const InputGroup = styled.div`
   }
 
   input::-webkit-calendar-picker-indicator {
+    width: 0px;
+    height: 0px;
+    color: transparent;
     display: none;
     appearance: none;
     -moz-appearance: none;
@@ -133,28 +142,37 @@ export const InputGroup = styled.div`
 
 export const SummaryContainer = styled.div`
   ${baseWrapper}
-`
-
-export const CartItem = styled.div`
-  padding: 0.5rem 0.25rem;
   display: flex;
-  /* justify-content: ; */
+  flex-direction: column;
 
-  gap: 1.25rem;
-  img {
-    width: 64px;
-    height: 64px;
-  }
+  gap: 1.5rem;
+`
 
-  div {
+export const SummaryInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.75rem;
+
+  span {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    p {
-      font: ${(props) => props.theme.fonts.text.md.regular};
-    }
+    justify-content: space-between;
   }
 `
 
-export const SummaryInfo = styled.div``
+export const FinishButton = styled.button`
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem;
+
+  font: ${(props) => props.theme.fonts.components.button.lg};
+  background: ${(props) => props.theme.colors.brand.yellow.normal};
+
+  color: ${(props) => props.theme.colors.base.white};
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: ${(props) => props.theme.colors.brand.yellow.dark};
+  }
+`

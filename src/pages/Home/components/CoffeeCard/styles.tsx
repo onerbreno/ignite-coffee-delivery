@@ -39,6 +39,7 @@ export const CoffeeCardBadge = styled.span`
 export const CoffeeCardInfo = styled.div`
   display: flex;
   flex-direction: column;
+
   gap: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -49,19 +50,24 @@ export const CoffeeCardInfo = styled.div`
   }
 
   p {
+    width: 100%;
+
     font: ${(props) => props.theme.fonts.text.sm.regular};
     color: ${(props) => props.theme.colors.base.label};
-    width: 100%;
   }
 `
 
 export const CoffeeCardFooter = styled.span`
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
+
   p {
+    display: flex;
+    align-items: baseline;
+
     font: ${(props) => props.theme.fonts.title.md};
 
     span {
@@ -72,14 +78,23 @@ export const CoffeeCardFooter = styled.span`
 
 export const CoffeeCardFooterActions = styled.span`
   display: flex;
-  gap: 0.5rem;
   align-items: center;
+
+  gap: 0.5rem;
 `
 export const CartButton = styled.button`
   display: flex;
+  cursor: pointer;
+
   border-radius: 6px;
+  padding: 0.5rem;
   border: 0;
+
   color: ${(props) => props.theme.colors.base.white};
   background: ${(props) => props.theme.colors.brand.purple.dark};
-  padding: 0.5rem;
+  transition: background-color 200ms;
+
+  &:hover {
+    background: ${(props) => props.theme.colors.brand.purple.normal};
+  }
 `

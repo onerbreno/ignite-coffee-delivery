@@ -1,5 +1,16 @@
 import styled from 'styled-components'
 
+const ICON_COLORS = {
+  'yellow-dark': '#C47F17',
+  'yellow-normal': '#DBAC2C',
+  'purple-normal': '#8047F8',
+  'base-text': '#574F4D',
+} as const
+
+interface IconProps {
+  iconColor: keyof typeof ICON_COLORS
+}
+
 export const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -47,17 +58,6 @@ export const HeroItem = styled.li`
 
   color: ${(props) => props.theme.colors.base.text};
 `
-
-const ICON_COLORS = {
-  'yellow-dark': '#C47F17',
-  'yellow-normal': '#DBAC2C',
-  'purple-normal': '#8047F8',
-  'base-text': '#574F4D',
-} as const
-
-interface IconProps {
-  iconColor: keyof typeof ICON_COLORS
-}
 
 export const Icon = styled.i<IconProps>`
   display: flex;

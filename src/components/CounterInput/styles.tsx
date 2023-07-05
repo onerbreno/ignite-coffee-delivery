@@ -4,8 +4,8 @@ export const CounterInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem;
 
+  padding: 0.5rem;
   width: 72px;
   height: 38px;
   border-radius: 6px;
@@ -22,17 +22,23 @@ export const CounterInputContainer = styled.div`
 
     background: transparent;
     color: ${(props) => props.theme.colors.brand.purple.normal};
+
+    transition: background-color 200ms;
+
+    &:hover {
+      color: ${(props) => props.theme.colors.brand.purple.dark};
+    }
   }
 
   input {
     text-align: center;
+
     border: 0;
     outline: 0;
-    background: transparent;
-
     width: 35%;
     height: 100%;
 
+    background: transparent;
     font: ${(props) => props.theme.fonts.text.md.regular};
   }
 
@@ -42,6 +48,7 @@ export const CounterInputContainer = styled.div`
 
     -webkit-appearance: none;
   }
+
   input[type='number'] {
     -moz-appearance: textfield;
   }

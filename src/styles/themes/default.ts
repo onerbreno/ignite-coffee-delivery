@@ -52,10 +52,10 @@ export const defaultTheme = {
       },
     },
     components: {
-      tag: 'bold normal 0.75rem/1.3 "Roboto", sans-serif',
+      tag: 'bold 0.75rem/1.3 "Roboto", sans-serif',
       button: {
-        lg: 'bold normal 0.875rem/1.6 "Roboto", sans-serif',
-        sm: 'bold normal 0.75rem/1.6 "Roboto", sans-serif',
+        lg: 'bold 0.875rem/1.6 "Roboto", sans-serif',
+        sm: 'normal 0.75rem/1.6 "Roboto", sans-serif',
       },
     },
   },

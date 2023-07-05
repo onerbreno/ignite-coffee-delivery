@@ -1,11 +1,17 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import deliveryImage from '../../../public/delivery.png'
-import { Icon, SuccessContainer, SuccessDetails, SuccessHeader, SuccessItem, SuccessWrapper } from './styles'
+import {
+  Icon,
+  SuccessContainer,
+  SuccessDetails,
+  SuccessHeader,
+  SuccessItem,
+  SuccessWrapper,
+} from './styles'
 
 export function Success() {
   return (
     <SuccessContainer>
-
       <SuccessHeader>
         <h1>Uhu! Pedido confirmado</h1>
         <p>Agora é só aguardar que logo o café chegará até você</p>
@@ -14,7 +20,7 @@ export function Success() {
       <SuccessWrapper>
         <SuccessDetails>
           <SuccessItem>
-            <Icon iconColor="yellow-dark">
+            <Icon iconColor="purple-normal">
               <MapPin weight="fill" size={16} />
             </Icon>
             <div>
@@ -24,18 +30,18 @@ export function Success() {
             </div>
           </SuccessItem>
           <SuccessItem>
-            <i>
+            <Icon iconColor="yellow-normal">
               <Timer />
-            </i>
+            </Icon>
             <div>
               <p>Previsão de entrega</p>
               <strong>20 min - 30 min</strong>
             </div>
           </SuccessItem>
           <SuccessItem>
-            <i>
+            <Icon iconColor="yellow-dark">
               <CurrencyDollar />
-            </i>
+            </Icon>
             <div>
               <p>Pagamento na entrega</p>
               <strong>Cartão de Crédito</strong>
@@ -45,8 +51,6 @@ export function Success() {
 
         <img src={deliveryImage} alt="" />
       </SuccessWrapper>
-
-
     </SuccessContainer>
   )
 }

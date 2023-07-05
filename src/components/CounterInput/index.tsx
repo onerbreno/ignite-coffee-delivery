@@ -5,9 +5,9 @@ import { ChangeEvent } from 'react'
 interface CounterInputProps {
   onDecrement: () => void
   onIncrement: () => void
-  onCounterChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onCounterChange?: (event: ChangeEvent<HTMLInputElement>) => void
   amount: number
-  limit: number
+  limit?: number
 }
 
 export function CounterInput({

@@ -1,4 +1,19 @@
-import { CreditCard, CurrencyDollar, MapPinLine, Money } from 'phosphor-react'
+import { CartItem } from './components/CartItem'
+import { RadioButton } from './components/RadioButton'
+import { CartContext } from '../../contexts/CartContext'
+import { ChangeEvent, useContext } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+
+import {
+  Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
+  Money,
+} from 'phosphor-react'
+
 import {
   AddressInputs,
   CheckoutContainer,
@@ -10,13 +25,59 @@ import {
   WrapperHeader,
   WrapperOrder,
 } from './styles'
-import { CartItem } from './CartItem'
-import { RadioButton } from '../../components/RadioButton'
+
+const AddressFormValidationSchema = zod.object({
+  zip_code: zod.string().refine((value) => /^[0-9]{8}$/.test(value), {
+    message: 'Informe um CEP válido',
+  }),
+  street: zod
+    .string()
+    .min(1, 'Informe a rua')
+    .max(60, 'A rua deve ter no máximo 60 caracteres'),
+  number: zod.string().min(1).max(10),
+  complement: zod.string().optional(),
+  neighborhood: zod
+    .string()
+    .min(1, 'Informe o bairro')
+    .max(60, 'A cidade deve ter no máximo 60 caracteres'),
+  city: zod
+    .string()
+    .min(1, 'Informe a cidade')
+    .max(60, 'A cidade deve ter no máximo 60 caracteres'),
+  uf: zod
+    .string()
+    .min(1, 'Informe a cidade')
+    .max(2, 'O estado deve ter no máximo 2 caracteres'),
+  // paymentMethod: zod
+})
+
+type AddressFormData = zod.infer<typeof AddressFormValidationSchema>
 
 export function Checkout() {
+  const { items } = useContext(CartContext)
+
+  const AddressForm = useForm<AddressFormData>({
+    resolver: zodResolver(AddressFormValidationSchema),
+    defaultValues: {
+      zip_code: '',
+      street: '',
+      number: '',
+      complement: '',
+      neighborhood: '',
+      city: '',
+      uf: '',
+    },
+  })
+
+  const { register, handleSubmit, formState } = AddressForm
+
+  console.log(formState.errors)
+
+  const onSubmit = (data: AddressFormData) => console.log(data)
+
   return (
     <main>
-      <CheckoutContainer>
+      <CheckoutContainer onSubmit={handleSubmit(onSubmit)}>
         <div>
           <h4>Complete seu pedido</h4>
           <WrapperOrder>
@@ -28,56 +89,59 @@ export function Checkout() {
                 <p>Informe o endereço onde deseja receber seu pedido</p>
               </div>
             </WrapperHeader>
+
             <AddressInputs>
               <InputGroup data-input-name="zip-code">
                 <label htmlFor="">CEP</label>
                 <input
-                  type="text"
-                  name="zip-code"
+                  {...register('zip_code', { valueAsNumber: false })}
                   placeholder="CEP"
-                  id="zip-code"
+                  id="zip_code"
+                  required
+                  min={8}
+                  onInvalid={(e: ChangeEvent<HTMLInputElement>) => {
+                    e.target.setCustomValidity(
+                      formState.errors?.zip_code?.message || '',
+                    )
+                  }}
                 />
               </InputGroup>
               <InputGroup data-input-name="street">
-                <label htmlFor="">Rua</label>
-                <input
-                  type="text"
-                  name="street"
-                  placeholder="Rua"
-                  id="street"
-                />
+                <label htmlFor="street">Rua</label>
+                <input {...register('street')} placeholder="Rua" id="street" />
               </InputGroup>
               <InputGroup data-input-name="number">
-                <label htmlFor="">Número</label>
-                <input type="text" name="number" placeholder="Número" id="" />
+                <label htmlFor="number">Número</label>
+                <input
+                  {...register('number', { valueAsNumber: false })}
+                  placeholder="Número"
+                  id="number"
+                />
               </InputGroup>
               <InputGroup data-input-name="complement">
-                <label htmlFor="">Complemento</label>
+                <label htmlFor="complement">Complemento</label>
                 <input
-                  type="text"
-                  name="complement"
+                  {...register('complement', { required: false })}
                   placeholder="Complemento"
-                  id=""
+                  id="complement"
                 />
               </InputGroup>
               <InputGroup data-input-name="neighborhood">
-                <label htmlFor="">Bairro</label>
+                <label htmlFor="neighborhood">Bairro</label>
                 <input
-                  type="text"
-                  name="neighborhood"
+                  {...register('neighborhood')}
                   placeholder="Bairro"
-                  id=""
+                  id="neighborhood"
                 />
               </InputGroup>
               <InputGroup data-input-name="city">
                 <label htmlFor="">Cidade</label>
-                <input type="text" name="city" placeholder="Cidade" id="" />
+                <input {...register('city')} placeholder="Cidade" id="city" />
               </InputGroup>
               <InputGroup data-input-name="uf">
                 <label htmlFor="uf">UF</label>
                 <input
-                  type="data"
-                  name="uf"
+                  {...register('uf')}
                   placeholder="UF"
                   id="uf"
                   list="uf-list"
@@ -127,34 +191,37 @@ export function Checkout() {
               </div>
             </WrapperHeader>
 
-            <RadioButtonGroup>
-              <RadioButton id="credit">
-                <div>
-                  <CreditCard size={16} />
-                </div>
-                <span>CARTÃO DE CRÉDITO</span>
-              </RadioButton>
-              <RadioButton id="de">
-                <div>
-                  <Money size={16} />
-                </div>
-                <span>CARTÃO DE DÉBITO</span>
-              </RadioButton>
-              <RadioButton id="credit">
-                <div>
-                  <Money size={16} />
-                </div>
-                <span>DINHEIRO</span>
-              </RadioButton>
-            </RadioButtonGroup>
+            <FormProvider {...AddressForm}>
+              <RadioButtonGroup>
+                <RadioButton id="credit">
+                  <i>
+                    <CreditCard size={16} />
+                  </i>
+                  <span>CARTÃO DE CRÉDITO</span>
+                </RadioButton>
+                <RadioButton id="debit">
+                  <i>
+                    <Bank size={16} />
+                  </i>
+                  <span>CARTÃO DE DÉBITO</span>
+                </RadioButton>
+                <RadioButton id="money">
+                  <i>
+                    <Money size={16} />
+                  </i>
+                  <span>DINHEIRO</span>
+                </RadioButton>
+              </RadioButtonGroup>
+            </FormProvider>
           </WrapperOrder>
         </div>
 
         <div>
           <h4>Cafés selecionados</h4>
           <SummaryContainer>
-            <CartItem />
-            <CartItem />
+            {items.map((item) => (
+              <CartItem key={item.id} item={item} />
+            ))}
 
             <SummaryInfo>
               <span>
@@ -171,7 +238,7 @@ export function Checkout() {
               </span>
             </SummaryInfo>
 
-            <FinishButton>CONFIRMAR PEDIDO</FinishButton>
+            <FinishButton type="submit">CONFIRMAR PEDIDO</FinishButton>
           </SummaryContainer>
         </div>
       </CheckoutContainer>

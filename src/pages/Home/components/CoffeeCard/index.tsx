@@ -10,7 +10,10 @@ import {
   CoffeeCardFooterActions,
   CoffeeCardInfo,
 } from './styles'
-import { ChangeEvent, useState } from 'react'
+
+import { ChangeEvent, useContext, useState } from 'react'
+import { formatCurrency } from '../../../../utils/formatCurrency'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export interface CoffeeType {
   id: number
@@ -26,6 +29,7 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const { AddNewItem, changeAmountOfItem, items } = useContext(CartContext)
   const [amount, setAmount] = useState(1)
 
   function handleIncrement() {
@@ -42,6 +46,17 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
       setAmount(newValue)
     }
   }
+
+  function handleClickCartButton() {
+    const itemInCart = items.find((item) => item.id === coffee.id)
+    if (itemInCart) {
+      changeAmountOfItem(itemInCart, amount)
+    } else {
+      AddNewItem({ ...coffee, amount })
+    }
+  }
+
+  const price = formatCurrency(coffee.price).split('R$')[1]
 
   return (
     <CoffeeCardContainer>
@@ -60,7 +75,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
 
       <CoffeeCardFooter>
         <p>
-          <span>R$</span> {coffee.price.toFixed(2).replace('.', ',')}
+          <span>R$</span> {price}
         </p>
 
         <CoffeeCardFooterActions>
@@ -71,7 +86,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
             amount={amount}
             limit={5}
           />
-          <CartButton>
+          <CartButton onClick={handleClickCartButton}>
             <ShoppingCart size={22} weight="fill" />
           </CartButton>
         </CoffeeCardFooterActions>

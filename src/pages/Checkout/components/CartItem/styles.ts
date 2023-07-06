@@ -4,10 +4,13 @@ export const CartItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  padding: 0.5rem 1rem 1.5rem 1rem;
+  padding: 0.5rem 1rem;
   gap: 1.25rem;
 
-  border-bottom: 1px solid ${(props) => props.theme.colors.base.button};
+  & + & {
+    padding: 1.5rem 1rem 0.5rem 1rem;
+    border-top: 1px solid ${(props) => props.theme.colors.base.button};
+  }
 `
 
 export const CartItemPreview = styled.div`

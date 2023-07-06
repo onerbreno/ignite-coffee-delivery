@@ -148,10 +148,17 @@ export const SummaryContainer = styled.div`
   gap: 1.5rem;
 `
 
+export const NoItemsLabel = styled.span`
+  text-align: center;
+  padding: 1rem 1rem 1rem;
+`
+
 export const SummaryInfo = styled.div`
   display: flex;
   flex-direction: column;
 
+  border-top: 1px solid ${(props) => props.theme.colors.base.button};
+  padding-top: 1.5rem;
   gap: 0.75rem;
 
   span {
@@ -162,17 +169,23 @@ export const SummaryInfo = styled.div`
 
 export const FinishButton = styled.button`
   border: none;
+  cursor: pointer;
+
   border-radius: 6px;
   padding: 0.75rem;
 
   font: ${(props) => props.theme.fonts.components.button.lg};
   background: ${(props) => props.theme.colors.brand.yellow.normal};
-
   color: ${(props) => props.theme.colors.base.white};
 
   transition: background-color 0.3s;
 
-  &:hover {
+  &:not(:disabled):hover {
     background: ${(props) => props.theme.colors.brand.yellow.dark};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
   }
 `

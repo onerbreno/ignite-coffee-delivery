@@ -5,14 +5,17 @@ import { Router } from './Router'
 import { GlobalStyles } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { CartContextProvider } from './contexts/CartContext'
+import { OrderContextProvider } from './contexts/OrderContext'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CartContextProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
+        <OrderContextProvider>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </OrderContextProvider>
       </CartContextProvider>
       <GlobalStyles />
     </ThemeProvider>

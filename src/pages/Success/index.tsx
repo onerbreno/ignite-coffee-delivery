@@ -1,5 +1,9 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import deliveryImage from '../../../public/delivery.png'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
+import { Navigate } from 'react-router-dom'
+
 import {
   Icon,
   SuccessContainer,
@@ -10,6 +14,10 @@ import {
 } from './styles'
 
 export function Success() {
+  const { order } = useContext(OrderContext)
+  const notExistOrder = !order.zip_code
+  if (notExistOrder) return <Navigate to="/" />
+
   return (
     <SuccessContainer>
       <SuccessHeader>
@@ -24,9 +32,13 @@ export function Success() {
               <MapPin weight="fill" size={16} />
             </Icon>
             <div>
-              <p>Entrega em Rua João Daniel Martinelli, 102</p>
+              <p>
+                Entrega em {order.street}, {order.number}
+              </p>
 
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>
+                {order.neighborhood} - {order.city}, {order.uf}
+              </p>
             </div>
           </SuccessItem>
           <SuccessItem>
@@ -44,7 +56,7 @@ export function Success() {
             </Icon>
             <div>
               <p>Pagamento na entrega</p>
-              <strong>Cartão de Crédito</strong>
+              <strong>{order.paymentMethod}</strong>
             </div>
           </SuccessItem>
         </SuccessDetails>

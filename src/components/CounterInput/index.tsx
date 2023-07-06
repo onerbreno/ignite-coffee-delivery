@@ -22,7 +22,7 @@ export function CounterInput({
 
   return (
     <CounterInputContainer>
-      <button onClick={onDecrement} disabled={decrementDisabled}>
+      <button type="button" onClick={onDecrement} disabled={decrementDisabled}>
         <Minus size={14} weight="bold" />
       </button>
       <input
@@ -32,7 +32,7 @@ export function CounterInput({
         value={amount}
         onChange={onCounterChange}
       />
-      <button onClick={onIncrement} disabled={incrementDisabled}>
+      <button type="button" onClick={onIncrement} disabled={incrementDisabled}>
         <Plus size={14} weight="bold" />
       </button>
     </CounterInputContainer>

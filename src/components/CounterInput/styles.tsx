@@ -25,8 +25,12 @@ export const CounterInputContainer = styled.div`
 
     transition: background-color 200ms;
 
-    &:hover {
+    &:not(:disabled):hover svg {
       color: ${(props) => props.theme.colors.brand.purple.dark};
+    }
+
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 

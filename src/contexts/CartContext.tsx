@@ -1,23 +1,25 @@
-import { ReactNode, createContext, useState } from 'react'
-import { CoffeeType } from '../pages/Home/components/CoffeeCard'
+import { ReactNode, createContext, useReducer } from 'react'
 import { formatCurrency } from '../utils/formatCurrency'
-
-export interface Item extends CoffeeType {
-  amount: number
-}
+import { Item, cartReducer } from '../reducers/cart/reducer'
+import {
+  AddNewItemAction,
+  changeAmountOfItemAction,
+  removeItemAction,
+} from '../reducers/cart/actions'
 
 interface CurrencyOfDelivery {
   format: string
   value: number
 }
+
 interface CartContextType {
   items: Item[]
   currencyOfDelivery: CurrencyOfDelivery
   AddNewItem: (item: Item) => void
   changeAmountOfItem: (item: Item, newAmount: number) => void
   removeItem: (item: Item) => void
-  removeAllItems: () => void
 }
+
 interface CartContextProviderProps {
   children: ReactNode
 }
@@ -25,29 +27,18 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [items, setItems] = useState<Item[]>([])
+  const [items, dispatch] = useReducer(cartReducer, [])
 
-  function AddNewItem(item: Item) {
-    setItems((state) => [...state, item])
+  function AddNewItem(newItem: Item) {
+    dispatch(AddNewItemAction(newItem))
   }
 
   function changeAmountOfItem(item: Item, newAmount: number) {
-    setItems((state) =>
-      state.map((itemCart) => {
-        if (itemCart.id === item.id) {
-          return { ...itemCart, amount: newAmount }
-        }
-        return itemCart
-      }),
-    )
+    dispatch(changeAmountOfItemAction(item, newAmount))
   }
 
   function removeItem(item: Item) {
-    setItems((state) => state.filter((itemCart) => itemCart.id !== item.id))
-  }
-
-  function removeAllItems() {
-    setItems((state) => state.filter((itemCart) => itemCart.id === 9999))
+    dispatch(removeItemAction(item))
   }
 
   const initialDeliveryCoast = 3.5
@@ -65,7 +56,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         changeAmountOfItem,
         removeItem,
         currencyOfDelivery,
-        removeAllItems,
       }}
     >
       {children}

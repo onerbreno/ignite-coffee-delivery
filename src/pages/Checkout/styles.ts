@@ -15,9 +15,10 @@ const baseWrapper = css`
 `
 
 export const CheckoutContainer = styled.form`
-  margin-top: 2.5rem;
   display: grid;
   grid-template-columns: minmax(min-content, 640px) minmax(min-content, 448px);
+
+  margin-top: 2.5rem;
   gap: 2rem;
 
   h4 {
@@ -29,6 +30,7 @@ export const CheckoutContainer = styled.form`
 export const WrapperOrder = styled.fieldset`
   display: flex;
   flex-direction: column;
+
   gap: 2rem;
 
   ${baseWrapper}
@@ -41,6 +43,7 @@ export const WrapperOrder = styled.fieldset`
 
 export const RadioButtonGroup = styled.span`
   display: flex;
+
   width: 100%;
   gap: 0.75rem;
 `
@@ -54,16 +57,15 @@ export const WrapperHeader = styled.header<IconProps>`
   }
 
   legend {
+    margin-bottom: 0.15rem;
+
     font: ${(props) => props.theme.fonts.text.md.regular};
     color: ${(props) => props.theme.colors.base.subtitle};
-    margin-bottom: 0.15rem;
   }
 `
 
 export const AddressInputs = styled.div`
   display: grid;
-  width: 100%;
-  gap: 1rem 0.75rem;
   grid-template-columns: minmax(min-content, 12.5rem) 1fr minmax(
       min-content,
       3.75rem
@@ -73,43 +75,13 @@ export const AddressInputs = styled.div`
     'street street street'
     'number complement complement'
     'neighborhood city uf';
+
+  width: 100%;
+  gap: 1rem 0.75rem;
 `
 
 export const InputGroup = styled.div`
-  input {
-    border: 0;
-    border-radius: 4px;
-    padding: 0.75rem;
-    width: 100%;
-  }
-
-  input::-webkit-calendar-picker-indicator {
-    width: 0px;
-    height: 0px;
-    color: transparent;
-    display: none;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-  }
-
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  label {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0;
-    border: 0;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-  }
+  position: relative;
 
   &[data-input-name='zip-code'] {
     grid-area: zip-code;
@@ -137,6 +109,51 @@ export const InputGroup = styled.div`
 
   &[data-input-name='uf'] {
     grid-area: uf;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem;
+
+    border: 0;
+    border-radius: 4px;
+  }
+
+  span {
+    position: absolute;
+    transform: translateY(-50%);
+
+    top: 50%;
+    right: 0.75rem;
+    user-select: none;
+
+    color: ${(props) => props.theme.colors.base.label};
+    font: normal italic 0.75rem Roboto;
+  }
+
+  input:focus {
+    outline: 1px solid ${(props) => props.theme.colors.brand.yellow.dark};
+  }
+
+  input::-webkit-calendar-picker-indicator {
+    width: 0px;
+    height: 0px;
+
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    color: transparent;
+  }
+
+  label {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
   }
 `
 

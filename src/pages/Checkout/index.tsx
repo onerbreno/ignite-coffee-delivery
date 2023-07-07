@@ -1,5 +1,5 @@
 import { CartItem } from './components/CartItem'
-import { RadioButton } from './components/RadioButton'
+import { RadioButton } from './components/InputRadio'
 import { CartContext } from '../../contexts/CartContext'
 import { useContext } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -84,8 +84,7 @@ export function Checkout() {
 
   function handleSubmitOrder(data: AddressFormData) {
     onFinishOrder(data)
-
-    navigate('/sucesso')
+    navigate('/success')
   }
 
   const hasItems = !!items.length
@@ -119,7 +118,7 @@ export function Checkout() {
 
             <AddressInputs>
               <InputGroup data-input-name="zip-code">
-                <label htmlFor="">CEP</label>
+                <label htmlFor="zip_code">CEP</label>
                 <input
                   {...register('zip_code', { valueAsNumber: false })}
                   placeholder="CEP"
@@ -160,6 +159,7 @@ export function Checkout() {
                   minLength={1}
                   maxLength={60}
                 />
+                <span>Opicional</span>
               </InputGroup>
               <InputGroup data-input-name="neighborhood">
                 <label htmlFor="neighborhood">Bairro</label>

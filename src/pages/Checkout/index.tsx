@@ -98,7 +98,9 @@ export function Checkout() {
 
   const formatTotalPriceItems = formatCurrency(totalPriceItems)
 
-  const totalOrder = totalPriceItems + currencyOfDelivery.value
+  const totalOrder = totalPriceItems
+    ? totalPriceItems + currencyOfDelivery.value
+    : 0
   const formatTotalOrder = formatCurrency(totalOrder)
 
   return (

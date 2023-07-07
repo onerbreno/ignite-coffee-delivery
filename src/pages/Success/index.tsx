@@ -18,6 +18,12 @@ export function Success() {
   const notExistOrder = !order.zip_code
   if (notExistOrder) return <Navigate to="/" />
 
+  const paymentMethod = {
+    credit: 'Cartão de crédito',
+    debit: 'Cartão de crédito',
+    money: 'Cartão de crédito',
+  }
+
   return (
     <SuccessContainer>
       <SuccessHeader>
@@ -33,7 +39,10 @@ export function Success() {
             </Icon>
             <div>
               <p>
-                Entrega em {order.street}, {order.number}
+                Entrega em{' '}
+                <strong>
+                  {order.street}, {order.number}
+                </strong>
               </p>
 
               <p>
@@ -56,7 +65,7 @@ export function Success() {
             </Icon>
             <div>
               <p>Pagamento na entrega</p>
-              <strong>{order.paymentMethod}</strong>
+              <strong>{paymentMethod[order.paymentMethod]}</strong>
             </div>
           </SuccessItem>
         </SuccessDetails>

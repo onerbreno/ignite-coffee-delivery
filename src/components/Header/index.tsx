@@ -1,5 +1,10 @@
 import { MapPin, ShoppingCart } from 'phosphor-react'
-import { HeaderActions, HeaderContainer } from './styles'
+import {
+  AmountItemsCart,
+  HeaderActions,
+  HeaderContainer,
+  LocationBadge,
+} from './styles'
 import CoffeeDelivery from '../../../public/logo-coffee-delivery.svg'
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
@@ -21,14 +26,14 @@ export function Header() {
       </NavLink>
 
       <HeaderActions>
-        <span>
+        <LocationBadge>
           <MapPin size={22} weight="fill" />
           Porto Alegre
-        </span>
+        </LocationBadge>
 
         <NavLink to="/checkout">
           <ShoppingCart size={22} weight="fill" />
-          {amountItems && <span>{amountItems}</span>}
+          {amountItems && <AmountItemsCart>{amountItems}</AmountItemsCart>}
         </NavLink>
       </HeaderActions>
     </HeaderContainer>

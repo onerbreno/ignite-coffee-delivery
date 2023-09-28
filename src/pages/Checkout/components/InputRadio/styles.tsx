@@ -2,6 +2,11 @@ import styled from 'styled-components'
 
 export const RadioButtonContainer = styled.div`
   width: 100%;
+
+  label {
+    cursor: pointer;
+  }
+
   input {
     position: absolute;
     clip: rect(1px, 1px, 1px, 1px);

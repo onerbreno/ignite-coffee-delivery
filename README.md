@@ -57,7 +57,6 @@ npm run dev
 # OU
 yarn dev
 ```
----
 
 ## :memo: Licença
 
